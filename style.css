@@ -3,7 +3,7 @@
   --primary-color: ##CCCCFF; /* A shade of periwinkle for header/footer */
   --secondary-color: #8b5cf6; /* A shade of purple for accents */
   --text-color-light-mode: #1f2937; /* Dark gray for text in light mode */
-  --text-color-dark-mode: #f9fafb; /* Light gray for text in dark mode */
+  --text-color-dark-mode: #1f2937; /* Dark gray for text in dark mode */
   --bg-color-light-mode: #C0C0C0; /* Light background */
   --bg-color-dark-mode: #1a202c; /* Dark background */
 }
