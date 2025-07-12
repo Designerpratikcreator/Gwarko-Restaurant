@@ -59,53 +59,96 @@
       observer.observe(section);
     });
 
-    // Carousel Functionality
+   // Add this to your script.js file
+
+document.addEventListener('DOMContentLoaded', () => {
     const carouselImages = document.getElementById('carousel-images');
-    const carouselPrevBtn = document.getElementById('carousel-prev');
-    const carouselNextBtn = document.getElementById('carousel-next');
+    const carouselPrev = document.getElementById('carousel-prev');
+    const carouselNext = document.getElementById('carousel-next');
     const carouselDotsContainer = document.getElementById('carousel-dots');
     const images = carouselImages.querySelectorAll('img');
+    const totalImages = images.length;
     let currentIndex = 0;
+    let autoSlideInterval;
 
-    function updateCarousel() {
-      const offset = -currentIndex * 100;
-      carouselImages.style.transform = `translateX(${offset}%)`;
-      updateDots();
-    }
-
-    function updateDots() {
-      carouselDotsContainer.innerHTML = ''; // Clear existing dots
-      images.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('carousel-dot');
-        if (index === currentIndex) {
-          dot.classList.add('active');
+    // Create carousel dots
+    function createDots() {
+        for (let i = 0; i < totalImages; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('carousel-dot');
+            if (i === 0) {
+                dot.classList.add('active');
+            }
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoSlide();
+            });
+            carouselDotsContainer.appendChild(dot);
         }
-        dot.addEventListener('click', () => {
-          currentIndex = index;
-          updateCarousel();
-        });
-        carouselDotsContainer.appendChild(dot);
-      });
     }
 
-    carouselPrevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-      updateCarousel();
+    // Update active dot
+    function updateDots() {
+        const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    // Move to a specific slide
+    function goToSlide(index) {
+        if (index < 0) {
+            currentIndex = totalImages - 1;
+        } else if (index >= totalImages) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        const offset = -currentIndex * 100; // 100% per image
+        carouselImages.style.transform = `translateX(${offset}%)`;
+        updateDots();
+    }
+
+    // Next slide
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    // Previous slide
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+
+    // Auto slide functionality
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 3000); // Change image every 3 seconds
+    }
+
+    // Reset auto slide on manual interaction
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    // Event listeners for navigation buttons
+    carouselNext.addEventListener('click', () => {
+        nextSlide();
+        resetAutoSlide();
     });
 
-    carouselNextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-      updateCarousel();
+    carouselPrev.addEventListener('click', () => {
+        prevSlide();
+        resetAutoSlide();
     });
 
     // Initialize carousel
-    updateCarousel();
-
-    // Auto-advance carousel (optional)
-    setInterval(() => {
-      carouselNextBtn.click();
-    }, 5000); // Change image every 5 seconds
+    createDots();
+    startAutoSlide(); // Start auto-sliding when the page loads
+});
 
     // Dummy form submission for demonstration (requires backend for real functionality)
     document.getElementById('order-form').addEventListener('submit', function(event) {
