@@ -5,8 +5,211 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gwarko Restaurant | Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> 
-  <body class="font-sans body-text body-bg transition-colors duration-300">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Early variables for design */
+    :root {
+      --primary-color: #d1b4b4; /* A shade of pink for header/footer */
+      --secondary-color: #8b5cf6; /* A shade of purple for accents */
+      --text-color-light-mode: #1f2937; /* Dark gray for text in light mode */
+      --text-color-dark-mode: #f9fafb; /* Light gray for text in dark mode */
+      --bg-color-light-mode: #f3f4f6; /* Light background */
+      --bg-color-dark-mode: #1a202c; /* Dark background */
+    }
+
+    /* Base styles for light mode */
+    .bg-pink { background-color: var(--primary-color); }
+    .text-black-800 { color: var(--text-color-light-mode); }
+    .bg-purple-500 { background-color: var(--secondary-color); }
+    .hover\:bg-purple-600:hover { background-color: #7c3aed; } /* Slightly darker purple */
+    .body-bg { background-color: var(--bg-color-light-mode); }
+    .body-text { color: var(--text-color-light-mode); }
+
+    /* Dark mode styles - applied when 'dark' class is on <html> */
+    html.dark .body-bg { background-color: var(--bg-color-dark-mode); }
+    html.dark .body-text { color: var(--text-color-dark-mode); }
+    html.dark .bg-white { background-color: #1f2937; /* Darker grey for cards */ }
+    html.dark .text-gray-700 { color: var(--text-color-dark-mode); }
+    html.dark .text-gray-600 { color: #d1d5db; } /* Slightly lighter for secondary text */
+    html.dark .bg-gray-100 { background-color: var(--bg-color-dark-mode); }
+    html.dark .bg-gray-200 { background-color: #2d3748; } /* Darker gray for contact background */
+    html.dark .text-black-800 { color: var(--text-color-dark-mode); } /* Header text in dark mode */
+    html.dark .hover\:bg-gray-200:hover { background-color: #4a5568; } /* Hover for dark mode toggle */
+    html.dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25); } /* Stronger shadow in dark mode */
+
+
+    /* Custom animations for underlines/boxes on hover */
+    .nav-item::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s ease-in-out;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu styling */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger-menu span {
+      height: 3px;
+      width: 25px;
+      background: var(--text-color-light-mode); /* Default hamburger color */
+      margin-bottom: 4px;
+      border-radius: 5px;
+    }
+    html.dark .hamburger-menu span {
+        background: var(--text-color-dark-mode); /* Hamburger color in dark mode */
+    }
+
+    @media (max-width: 768px) {
+      .hamburger-menu {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--primary-color);
+        position: absolute;
+        top: 64px; /* Adjust based on header height */
+        left: 0;
+        padding: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      html.dark .nav-links {
+        background-color: var(--bg-color-dark-mode);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .nav-links a {
+        padding: 0.75rem 1rem;
+        text-align: center;
+      }
+    }
+
+    /* Gallery image animation for individual items (retained) */
+    .gallery-item img {
+      transition: transform 0.5s ease-in-out;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+  /* Add this to your style.css file */
+
+.carousel-container {
+    position: relative;
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow: hidden; /* Hides images outside the view */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Smooth transition for sliding */
+}
+
+.carousel-images img {
+    width: 100%;
+    display: block;
+    object-fit: cover; /* Ensures images cover the area without distortion */
+    flex-shrink: 0; /* Prevents images from shrinking */
+    border-radius: 8px;
+    height: 450px; /* Set a fixed height for consistency */
+}
+
+.carousel-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-nav-button.prev {
+    left: 10px;
+}
+
+.carousel-nav-button.next {
+    right: 10px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-images img {
+        height: 300px; /* Adjust height for smaller screens */
+    }
+    .carousel-nav-button {
+        padding: 8px 12px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-images img {
+        height: 200px; /* Further adjust for very small screens */
+    }
+    .carousel-nav-button {
+        padding: 5px 10px;
+        font-size: 18px;
+    }
+    .carousel-dots {
+        bottom: 8px;
+        gap: 6px;
+    }
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+  </style>
+</head>
+<body class="font-sans body-text body-bg transition-colors duration-300">
   <header class="bg-pink shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
       <div class="flex items-center">
@@ -223,13 +426,11 @@
         <div>
           <h3 class="text-xl font-semibold mb-2 body-text">Nepali Cuisine Cooking Class</h3>
           <p class="text-gray-700 body-text mb-2">Learn to prepare traditional Nepali dishes from our head chef.</p>
-          <p class="text-gray-600 body-text text-sm">Date: Sessions start twice a year during January and August | Time: 6:00 AM - 10:00 AM</p>
+          <p class="text-600 body-text text-sm">Date: Sessions start twice a year during January and August | Time: 6:00 AM - 10:00 AM</p>
         </div>
       </div>
     </div>
   </section>
-
-
 
     <h3 class="text-2xl font-bold text-center mb-6 flex items-center justify-center"><i class="fas fa-camera mr-2"></i>More Visuals</h3>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -412,5 +613,174 @@
       </div>
     </div>
   </footer>
-    </body>
+  <script>
+    // Theme toggle (Light/Dark Mode)
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    // Set initial theme based on localStorage or system preference
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Hamburger menu functionality
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburgerButton.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+
+    // Simple Fade-in animation for sections (re-apply on scroll)
+    const fadeInSections = document.querySelectorAll('.animate-fadeIn');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        } else {
+          // Optional: reset opacity/transform if section goes out of view
+          // entry.target.style.opacity = '0';
+          // entry.target.style.transform = 'translateY(20px)';
+        }
+      });
+    }, { threshold: 0.1 }); // Adjust threshold as needed
+
+    fadeInSections.forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+      observer.observe(section);
+    });
+
+   // Add this to your script.js file
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if the carousel container exists before trying to manipulate it
+    const carouselImages = document.getElementById('carousel-images');
+    if (carouselImages) {
+        const carouselPrev = document.getElementById('carousel-prev');
+        const carouselNext = document.getElementById('carousel-next');
+        const carouselDotsContainer = document.getElementById('carousel-dots');
+        const images = carouselImages.querySelectorAll('img');
+        const totalImages = images.length;
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        // Create carousel dots
+        function createDots() {
+            for (let i = 0; i < totalImages; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('carousel-dot');
+                if (i === 0) {
+                    dot.classList.add('active');
+                }
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                    resetAutoSlide();
+                });
+                carouselDotsContainer.appendChild(dot);
+            }
+        }
+
+        // Update active dot
+        function updateDots() {
+            const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Move to a specific slide
+        function goToSlide(index) {
+            if (index < 0) {
+                currentIndex = totalImages - 1;
+            } else if (index >= totalImages) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+            const offset = -currentIndex * 100; // 100% per image
+            carouselImages.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+
+        // Next slide
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        // Previous slide
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+
+        // Auto slide functionality
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 3000); // Change image every 3 seconds
+        }
+
+        // Reset auto slide on manual interaction
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        // Event listeners for navigation buttons
+        carouselNext.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        carouselPrev.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        // Initialize carousel
+        createDots();
+        startAutoSlide(); // Start auto-sliding when the page loads
+    }
+});
+
+    // Dummy form submission for demonstration (requires backend for real functionality)
+    document.getElementById('order-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Order placed! (This is a dummy submission. A server-side script is needed to process and email this data.)');
+      this.reset(); // Clear the form
+    });
+
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Message sent! (This is a dummy submission. A server-side script is needed to process and email this data to pratik_mhnrs2023@kusoa.edu.np.)');
+      this.reset(); // Clear the form
+    });
+
+  </script>
+</body>
 </html>
