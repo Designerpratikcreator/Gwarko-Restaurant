@@ -21,7 +21,7 @@ html.dark .body-bg { background-color: var(--bg-color-dark-mode); }
 html.dark .body-text { color: var(--text-color-dark-mode); }
 html.dark .bg-white { background-color: #1f2937; /* Darker grey for cards */ }
 html.dark .text-gray-700 { color: var(--text-color-dark-mode); }
-html.dark .text-gray-700 { color: ##1f2937; } /* Slightly lighter for secondary text */
+html.dark .text-gray-700 { color: #1f2937; } /* Slightly lighter for secondary text */
 html.dark .bg-gray-100 { background-color: var(--bg-color-dark-mode); }
 html.dark .bg-gray-200 { background-color: #2d3748; } /* Darker gray for contact background */
 html.dark .text-black-800 { color: var(--text-color-dark-mode); } /* Header text in dark mode */
