@@ -162,5 +162,4 @@ document.getElementById('order-form').addEventListener('submit', function(event)
 document.getElementById('message-form').addEventListener('submit', function(event) {
   event.preventDefault();
   alert('Message sent! (This is a dummy submission. A server-side script is needed to process and email this data to pratik_mhnrs2023@kusoa.edu.np.)');
-  this.reset(); // Clear the form
-});
+  this.reset(); // Clear the form;
