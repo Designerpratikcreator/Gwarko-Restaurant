@@ -95,72 +95,107 @@
       transform: scale(1.05);
     }
 
-    /* Carousel specific styles */
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      height: 400px; /* Fixed height for the carousel */
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+  /* Add this to your style.css file */
 
-    .carousel-images {
-      display: flex;
-      height: 100%;
-      transition: transform 0.5s ease-in-out;
-    }
+.carousel-container {
+    position: relative;
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow: hidden; /* Hides images outside the view */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Smooth transition for sliding */
+}
+
+.carousel-images img {
+    width: 100%;
+    display: block;
+    object-fit: cover; /* Ensures images cover the area without distortion */
+    flex-shrink: 0; /* Prevents images from shrinking */
+    border-radius: 8px;
+    height: 450px; /* Set a fixed height for consistency */
+}
+
+.carousel-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-nav-button.prev {
+    left: 10px;
+}
+
+.carousel-nav-button.next {
+    right: 10px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .carousel-images img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Ensures images cover the area */
-      flex-shrink: 0; /* Prevent images from shrinking */
+        height: 300px; /* Adjust height for smaller screens */
     }
-
     .carousel-nav-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0,0,0,0.5);
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      border-radius: 0.25rem;
-      transition: background-color 0.3s ease;
-      z-index: 10;
+        padding: 8px 12px;
+        font-size: 20px;
     }
-    .carousel-nav-button:hover {
-      background-color: rgba(0,0,0,0.7);
-    }
-    .carousel-nav-button.prev {
-      left: 1rem;
-    }
-    .carousel-nav-button.next {
-      right: 1rem;
-    }
+}
 
+@media (max-width: 480px) {
+    .carousel-images img {
+        height: 200px; /* Further adjust for very small screens */
+    }
+    .carousel-nav-button {
+        padding: 5px 10px;
+        font-size: 18px;
+    }
     .carousel-dots {
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.5rem;
-      z-index: 10;
+        bottom: 8px;
+        gap: 6px;
     }
     .carousel-dot {
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255,255,255,0.5);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+        width: 10px;
+        height: 10px;
     }
-    .carousel-dot.active {
-      background-color: white;
-    }
-  </style>
-</head>
+} 
