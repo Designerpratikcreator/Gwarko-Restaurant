@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gwarko Restaurant | Home</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <form id="application-form" class="main-form" action="https://formspree.io/f/xdkzqdlq" method="POST"> 
 </head>
 <body class="font-sans body-text body-bg transition-colors duration-300">
-  <header class="bg-pink shadow sticky top-0 z-50">
+ <header class="bg-pink-500 shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
       <div class="flex items-center">
         <h1 class="text-xl font-bold text-black-800">Gwarko Restaurant</h1>
@@ -231,7 +232,8 @@
     </div>
   </section>
 
-    <h3 class="text-2xl font-bold text-center mb-6 flex items-center justify-center"><i class="fas fa-camera mr-2"></i>More Visuals</h3>
+<section id="gallery" class="py-16 px-4 max-w-6xl mx-auto">
+<h3 class="text-2xl font-bold text-center mb-6 flex items-center justify-center"> <i class="fas fa-camera mr-2"></i>More Visuals </h3>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
       <div class="gallery-item relative overflow-hidden rounded-lg shadow-md group">
         <img src="/Assets/restaurant background.jpg" class="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110" alt="Restaurant Interior ">
@@ -298,7 +300,7 @@
 
   <section id="application" class="py-16 px-4 max-w-4xl mx-auto">
     <h2 class="text-3xl font-bold text-center mb-10 flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i>Food Order Application</h2>
-    <form class="bg-white p-8 rounded-lg shadow-lg" id="order-form">
+   <form class="bg-white p-8 rounded-lg shadow-lg" id="order-form" action="https://formspree.io/f/xdkzqdlq" method="POST">
       <p class="text-gray-700 body-text mb-6 text-center">Place your order with us! Please fill out the details below.</p>
 
       <div class="mb-4">
@@ -348,20 +350,29 @@
     </form>
   </section>
 
-   <section id="Message" class="application-section common-section">
-            <div class="container">
-                <h2><i class="fas fa-handshake"></i> Your message </h2>
-                <p class="section-description"> Feel free to reach </p>
-                 <form id="application-form" class="main-form" action="https://formspree.io/f/xdkzqdlq" method="POST"> 
-                <div class="form-group"> 
-                       <div class="form-group">
-                        <label for="appDetails"> Write your message :</label>
-                        <textarea id="appDetails" name="message" rows="12" placeholder="Write your helpline message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-submit"> Send message <i class="fas fa-paper-plane"></i></button>
-                </form> 
-            </div>
-        </section>
+ <section id="message" class="application-section common-section">
+<div class="container">
+<h2><i class="fas fa-handshake"></i> Your message </h2>
+<p class="section-description"> Feel free to reach </p>
+
+<form id="message-form" class="main-form"
+action="https://formspree.io/f/xdkzqdlq" method="POST">
+
+<div class="form-group">
+<label for="appDetails">Write your message :</label>
+
+<textarea id="appDetails" name="message" rows="12"
+placeholder="Write your helpline message" required></textarea>
+
+</div>
+
+<button type="submit" class="btn btn-submit">
+Send message <i class="fas fa-paper-plane"></i>
+</button>
+
+</form>
+</div>
+</section>
 
   <section id="contact" class="py-16 px-4 bg-gray-200 text-center">
     <h2 class="text-3xl font-bold mb-10 flex items-center justify-center"><i class="fas fa-map-marker-alt mr-2"></i>Contact Us</h2>
