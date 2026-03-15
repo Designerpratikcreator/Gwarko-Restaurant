@@ -1,2 +1,2 @@
-# Gwarko-Restaurant
+# PATAN PIZZA KITCHEN
 Restaurant/Hospitality
